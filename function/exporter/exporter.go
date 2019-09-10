@@ -45,15 +45,15 @@ func Exporter() {
 	var gaugesDenom []prometheus.Gauge = make([]prometheus.Gauge, len(denomList)*3)
 
 	for i := 0; i < len(gaugesNamespaceList); i++ {
-		gauges[i] = newGauge("Terra", gaugesNamespaceList[i], "")
+		gauges[i] = newGauge("Cosmos", gaugesNamespaceList[i], "")
 		prometheus.MustRegister(gauges[i])
 	}
 
 	count := 0
 	for i := 0; i < len(denomList)*3; i += 3 {
-		gaugesDenom[i] = newGauge("Terra_rewards", denomList[count], "")
-		gaugesDenom[i+1] = newGauge("Terra_commission", denomList[count], "")
-		gaugesDenom[i+2] = newGauge("Terra_balances", denomList[count], "")
+		gaugesDenom[i] = newGauge("Cosmos_rewards", denomList[count], "")
+		gaugesDenom[i+1] = newGauge("Cosmos_commission", denomList[count], "")
+		gaugesDenom[i+2] = newGauge("Cosmos_balances", denomList[count], "")
 		prometheus.MustRegister(gaugesDenom[i])
 		prometheus.MustRegister(gaugesDenom[i+1])
 		prometheus.MustRegister(gaugesDenom[i+2])
@@ -63,7 +63,7 @@ func Exporter() {
 
 	gaugesForLabel := prometheus.NewCounterVec(
 		prometheus.CounterOpts{
-			Namespace: "Terra",
+			Namespace: "Cosmos",
 			Name:      "labels",
 			Help:      "",
 		},
