@@ -1,4 +1,4 @@
-module ste
+module github.com/node-a-team/cosmos-validator_exporter
 
 go 1.12
 
