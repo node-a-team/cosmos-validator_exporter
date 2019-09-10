@@ -1,0 +1,19 @@
+# TOML Document for Cosmos-Validator Exporter(Pometheus & Grafana)
+
+title = "Cosmos-Validator Exporter TOML"
+network = "cosmos"
+
+# RPC-Server
+[rpc]
+address = "localhost:26657"
+
+# Rest-server
+[rest_server]
+address = "localhost:1317"
+
+[validator_info]
+operatorAddress = ""
+
+[option]
+exporterListenPort = "26661"
+outputPrint = true
