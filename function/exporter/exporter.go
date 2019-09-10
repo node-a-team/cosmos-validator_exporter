@@ -23,7 +23,7 @@ import (
 
 var (
 	denomList           = []string{"uatom"}
-	gaugesNamespaceList = [...]string{"blockHeight", "currentBlockTime", "precommitRate", "proposerWalletAccountNumber", "validatorCount", "notBondedTokens", "bondedTokens", "totalBondedTokens", "bondedRate", "validatorCommitStatus", "proposerPriorityValue", "proposerPriority", "proposingStatus", "votingPower", "delegatorShares", "delegationRatio", "delegatorCount", "selfDelegationAmount", "commissionRate", "commissionMaxRate", "commissionMaxChangeRate", "minSelfDelegation", "jailed"}
+	gaugesNamespaceList = [...]string{"blockHeight", "currentBlockTime", "precommitRate", "blocksPerYear", "defaultBlockTime", "inflationRateChange", "inflationMax", "inflationMin", "inflationGoalBonded", "defaultBlockTimeInflation", "currentBlockTimeInflation", "proposerWalletAccountNumber", "validatorCount", "notBondedTokens", "bondedTokens", "totalBondedTokens", "bondedRate", "validatorCommitStatus", "proposerPriorityValue", "proposerPriority", "proposingStatus", "votingPower", "delegatorShares", "delegationRatio", "delegatorCount", "selfDelegationAmount", "commissionRate", "commissionMaxRate", "commissionMaxChangeRate", "minSelfDelegation", "jailed"}
 
 	contentsColorInit string = "\033[0m"
 )
@@ -205,7 +205,7 @@ func Exporter() {
 
 				// print
 				if t.OutputPrint {
-					fmt.Printf("\033[1m\033[7m\033[32m[ ############ Chain_id: %s ############ ]\n\n"+contentsColorInit, chainId)
+					fmt.Printf("\n\n\033[1m\033[7m\033[32m[ ############ Chain_id: %s ############ ]\n\n"+contentsColorInit, chainId)
 					fmt.Printf("\033[1m> Height: \033[32m%0.0f\n"+contentsColorInit, blockHeight)
 
 					fmt.Printf("  - Time: %s UTC\n", blockTime)
@@ -272,7 +272,7 @@ func Exporter() {
 				}
 
 				// prometheus giages value
-				gaugesValue := [...]float64{blockHeight, currentBlockTime, precommitRate, proposerWalletAccountNumber, validatorCount, notBondedTokens, bondedTokens, totalBondedTokens, bondedRate, validatorCommitStatus, proposerPriorityValue, proposerPriority, proposingStatus, votingPower, delegatorShares, delegationRatio, delegatorCount, selfDelegationAmount, commissionRate, commissionMaxRate, commissionMaxChangeRate, minSelfDelegation, jailed}
+				gaugesValue := [...]float64{blockHeight, currentBlockTime, precommitRate, blocksPerYear, defaultBlockTime, inflationRateChange, inflationMax, inflationMin, inflationGoalBonded, defaultBlockTimeInflation, currentBlockTimeInflation, proposerWalletAccountNumber, validatorCount, notBondedTokens, bondedTokens, totalBondedTokens, bondedRate, validatorCommitStatus, proposerPriorityValue, proposerPriority, proposingStatus, votingPower, delegatorShares, delegationRatio, delegatorCount, selfDelegationAmount, commissionRate, commissionMaxRate, commissionMaxChangeRate, minSelfDelegation, jailed}
 
 				for i := 0; i < len(gaugesNamespaceList); i++ {
 					gauges[i].Set(gaugesValue[i])
