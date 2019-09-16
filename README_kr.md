@@ -15,9 +15,9 @@ Tendermint의 기본 Prometheus exporter(localhost:26657)에서 제공되지 않
 - chainId: Chain 이름
 - blockHeight: 블록 높이
 - currentBlockTime: 블록 타임(현재 블록생성 시간-이전 블록생성 시간)
-- bondedTokens: 본딩된 토큰 현황(Atom) 
-- notBondedTokens: 본딩되지 않은 토큰 현황(Atom)
-- totalBondedTokens: 본딩된 토큰+본딩되지 않은 토큰(Atom)
+- bondedTokens(Atom): 본딩된 토큰 현황
+- notBondedTokens(Atom): 본딩되지 않은 토큰 현황
+- totalBondedTokens(Atom): 본딩된 토큰+본딩되지 않은 토큰
 - bondedRate: 본딩률
 - validatorCount: 검증인 수
 - precommitRate: Precommit 참여율
@@ -44,7 +44,7 @@ Tendermint의 기본 Prometheus exporter(localhost:26657)에서 제공되지 않
 - balances(uatom): 검증인의 지갑 정보
 - commission(uatom): 검증인의 누적된 수수료 정보
 - rewards(uatom): 검증인의 누적된 리워드 정보
-- minSelfDelegation: 검증인의 최소 위임량 기준(Atom)
+- minSelfDelegation(Atom): 검증인의 최소 위임량 기준
 - jailed: 검증인의 감옥 상태(true: 1, false: 0)
 
 ![CreatePlan](./example/monitoring_example(prometheus).png)
