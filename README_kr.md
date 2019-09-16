@@ -19,6 +19,16 @@ Tendermint의 기본 Prometheus exporter(localhost:26657)에서 제공되지 않
 - notBondedTokens(Atom): 본딩되지 않은 토큰 현황
 - totalBondedTokens(Atom): 본딩된 토큰+본딩되지 않은 토큰
 - bondedRate: 본딩률
+
+- blockPerYear: 1년에 생성되는 block의 수
+- defaultBlockTime: 기본 블록 타임
+- defaultBlockTimeInflation: 기본 블록 타임에 대한 인플레이션
+- currentBlockTimeInflation: 현재 블록 타임에 대한 인플레이션
+- inflationMax: 최대 인플레이션
+- inflationMin: 최소 인플레이션
+- inflationRateChange: 인플레이션 변경율
+- inflationGoalBonded: 인플레션의 목표 본딩률
+
 - validatorCount: 검증인 수
 - precommitRate: Precommit 참여율
 - proposerWalletAccountNumber: 검증인의 지갑에 대한 Account number(Grafana에서 Proposer 표현 시 활용되며 정리된 파일이 $HOME 디렉토리에 "validatorsWalletAccounNumber.csv"로 저장됨)
