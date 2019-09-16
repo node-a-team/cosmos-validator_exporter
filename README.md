@@ -19,6 +19,14 @@ This exporter is for monitoring information which is not provided from Tendermin
 - notBondedTokens: Number of unbonded Atom
 - totalBondedTokens: Number of currently bonded & unbonded Atom
 - bondedRate: Ratio of bonded tokens within the network
+- blockPerYear: Number of blocks generated in one year
+- defaultBlockTime: Preset (default) block time
+- defaultBlockTimeInflation: Inflation rate based on defaultBlockTime
+- currentBlockTimeInflation: Inflation rate based on current block time
+- inflationMax: Maximum Inflation
+- inflationMin: Minimum Inflation
+- inflationRateChange: Total range which the inflation can change
+- inflationGoalBonded: Target bonding rate which changes the velocity of the inflation
 - validatorCount: Number of validators within the network
 - precommitRate: Precommit Ratio of precommits collected in a round
 - proposerWalletAccountNumber: Account number given on each validator’s wallet (Required to show Proposer in Grafana) 
