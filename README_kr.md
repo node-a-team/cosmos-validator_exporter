@@ -27,7 +27,7 @@ Tendermint의 기본 Prometheus exporter(localhost:26657)에서 제공되지 않
 - inflationMax: 최대 인플레이션
 - inflationMin: 최소 인플레이션
 - inflationRateChange: 인플레이션 변경율
-- inflationGoalBonded: 인플레션의 목표 본딩률
+- inflationGoalBonded: 인플레이션의 목표 본딩률
 
 - validatorCount: 검증인 수
 - precommitRate: Precommit 참여율
