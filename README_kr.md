@@ -7,7 +7,7 @@ Cosmos 검증인을 위한 Prometheus exporter
 
 
 ## Introduction
-Tendermint의 기본 Prometheus exporter(localhost:26657)에서 제공되지 않는 부분, 특별히 검증인의 정보를 모니터링하기 위한 exporter
+Tendermint의 기본 Prometheus exporter(localhost:26660)에서 제공되지 않는 부분, 특별히 검증인의 정보를 모니터링하기 위한 exporter
 
 
 ## Collecting information list
