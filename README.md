@@ -7,7 +7,7 @@ Prometheus exporter for Cosmos Validators
 
 
 ## Introduction
-This exporter is for monitoring information which is not provided from Tendermint’s basic Prometheus exporter (localhost:26657), and other specific information monitoring purposes
+This exporter is for monitoring information which is not provided from Tendermint’s basic Prometheus exporter (localhost:26660), and other specific information monitoring purposes
 
 
 ## Collecting information list
