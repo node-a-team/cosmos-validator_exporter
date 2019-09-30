@@ -5,14 +5,14 @@ network = "cosmos"
 
 # RPC-Server
 [rpc]
-address = "localhost:26657"
+address = "0.:26657"
 
 # Rest-server
 [rest_server]
-address = "localhost:1317"
+address = "0.:1317"
 
 [validator_info]
-operatorAddress = ""
+operatorAddress = "cosmosvaloper14l0fp639yudfl46zauvv8rkzjgd4u0zk2aseys"
 
 [option]
 exporterListenPort = "26661"
