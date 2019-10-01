@@ -106,6 +106,8 @@ outputPrint = true
 
 
 ## Grafana Example
+ - template: https://grafana.com/grafana/dashboards/10942/revisions
+ 
 Can set alarms using the functions on Grafana (ex. Alarms if the validator fails to precommit or gets jailed)
 ![CreatePlan](./example/monitoring_example(grafana).png)
 
