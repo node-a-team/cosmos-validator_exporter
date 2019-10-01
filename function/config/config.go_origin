@@ -7,7 +7,6 @@ import (
 	"fmt"
         "time"
 	"os"
-	"os/exec"
 	"log"
 
         "github.com/BurntSushi/toml"
@@ -22,8 +21,6 @@ func Init() {
 
         t.RpcServer = config.Rpc.Address
         t.RestServer = config.Rest_server.Address
-
-	serverChecker()
 
 	t.OperatorAddr = config.Validator_info.OperatorAddress
 	t.ExporterListenPort = config.Option.ExporterListenPort
@@ -64,21 +61,5 @@ func readConfig() t.Config {
         }
 
         return config
-
-}
-
-func serverChecker() {
-
-	fmt.Println("serverChecker")
-
-        cmd := "curl -s -XGET " + t.RpcServer + "/abci_info" +" -H \"accept:application/json\""
-        out, _ := exec.Command("/bin/bash", "-c", cmd).Output()
-	fmt.Println(string(out))
-
-	cmd = "curl -s -XGET " + t.RestServer + "/node_info" +" -H \"accept:application/json\""
-        out, _ = exec.Command("/bin/bash", "-c", cmd).Output()
-        fmt.Println(string(out))
-
-
 
 }

@@ -84,6 +84,7 @@ func Exporter() {
 		mintingParamsStatus := minting.MintingParamsStatus()
 
 
+
 		// validators
 		validatorCountOrigin, validatorsetsStatus := validators.ValidatorsetsStatus()
 		validatorsStatus := validators.ValidatorsStatus()
@@ -110,6 +111,7 @@ func Exporter() {
 		proposerConsHexAddress := blockStatus.Block.Header.Proposer_address
 		proposerMoniker := block.ProposerMoniker(blockStatus.Block.Header.Proposer_address, validatorsetsStatus, validatorsStatus)
 		proposerWalletAccountNumber := float64(0.0)
+
 
 		// staking
 		notBondedTokensOrigin, bondedTokensOrigin := staking.GetStakingPool()
