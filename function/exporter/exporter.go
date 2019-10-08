@@ -11,7 +11,6 @@ import (
 
 	block "github.com/node-a-team/cosmos-validator_exporter/function/block"
 	commit "github.com/node-a-team/cosmos-validator_exporter/function/commit"
-	consensus "github.com/node-a-team/cosmos-validator_exporter/function/consensus"
 	minting "github.com/node-a-team/cosmos-validator_exporter/function/minting"
 	keyutil "github.com/node-a-team/cosmos-validator_exporter/function/keyutil"
 	staking "github.com/node-a-team/cosmos-validator_exporter/function/staking"
@@ -79,19 +78,21 @@ func Exporter() {
 	for {
 
 		blockStatus := block.BlockStatus()
-		currentBlockHeight, _ := strconv.Atoi(blockStatus.Result.Block.Header.Height)
-		consensusStatus := consensus.ConsensusStatus()
+		currentBlockHeight, _ := strconv.Atoi(blockStatus.Block.Header.Height)
+//		consensusStatus := consensus.ConsensusStatus()
 		commitStatus := commit.CommitStatus(currentBlockHeight)
 		mintingParamsStatus := minting.MintingParamsStatus()
+
+
 
 		// validators
 		validatorCountOrigin, validatorsetsStatus := validators.ValidatorsetsStatus()
 		validatorsStatus := validators.ValidatorsStatus()
 
 		// block
-		chainId := blockStatus.Result.Block.Header.Chain_id
-		blockTime := blockStatus.Result.Block.Header.Time.Format("060102 15:04:05")
-		blockHeight := utils.StringToFloat64(blockStatus.Result.Block.Header.Height)
+		chainId := blockStatus.Block.Header.Chain_id
+		blockTime := blockStatus.Block.Header.Time.Format("060102 15:04:05")
+		blockHeight := utils.StringToFloat64(blockStatus.Block.Header.Height)
 		currentBlockTime := block.CalcBlockTime(blockStatus)
 
 		// minting
@@ -107,9 +108,10 @@ func Exporter() {
 		// commit
 		precommitRate := commit.PrecommitRate(commitStatus) * 100
 		validatorCount := float64(validatorCountOrigin)
-		proposerConsHexAddress := blockStatus.Result.Block.Header.Proposer_address
-		proposerMoniker := block.ProposerMoniker(blockStatus.Result.Block.Header.Proposer_address, validatorsetsStatus, validatorsStatus)
+		proposerConsHexAddress := blockStatus.Block.Header.Proposer_address
+		proposerMoniker := block.ProposerMoniker(blockStatus.Block.Header.Proposer_address, validatorsetsStatus, validatorsStatus)
 		proposerWalletAccountNumber := float64(0.0)
+
 
 		// staking
 		notBondedTokensOrigin, bondedTokensOrigin := staking.GetStakingPool()
@@ -120,11 +122,6 @@ func Exporter() {
 		totalBondedTokens := totalBondedTokensOrigin / math.Pow10(6)
 		bondedRate := bondedTokensOrigin / totalBondedTokensOrigin
 
-		// consensus
-		latestRound := len(consensusStatus.Result.Round_state.Height_vote_set) - 1
-		heightRoundStep := consensusStatus.Result.Round_state.Status
-		prevotes := consensusStatus.Result.Round_state.Height_vote_set[latestRound].Prevotes_bit_array
-		precommit := consensusStatus.Result.Round_state.Height_vote_set[latestRound].Precommits_bit_array
 
 		// csv file export(validatorsAccountNumber)
 		if fileExportChecker == 0 || int(blockHeight)%baseBlockForFileExport == 0 {
@@ -195,7 +192,7 @@ func Exporter() {
 				consHexAddress := keyutil.RunFromBech32(consBech32Address)
 
 				// etc
-				proposingStatus := float64(utils.GetPoposingCheck(blockStatus.Result.Block.Header.Proposer_address, consHexAddress))
+				proposingStatus := float64(utils.GetPoposingCheck(blockStatus.Block.Header.Proposer_address, consHexAddress))
 				delegatorCount, selfDelegationAmountOrigin := validators.ValidatorDelegatorNumber(operatorAddress, accountAddress)
 				delegationRatio := delegatorShares / bondedTokens
 				selfDelegationAmount := selfDelegationAmountOrigin / math.Pow10(6)
@@ -213,10 +210,6 @@ func Exporter() {
 
 					fmt.Printf("  - Proposer: %s(%s)\n", proposerMoniker, proposerConsHexAddress)
 					fmt.Printf("  - PrecommitRate: %f\n", precommitRate)
-
-					fmt.Println("  - height/round/step:", heightRoundStep)
-					fmt.Println("  - prevotes:", prevotes)
-					fmt.Println("  - precommit: ", precommit)
 
 					fmt.Println("\n  - notBondedTokens: ", notBondedTokens)
 					fmt.Println("  - bondedTokens: ", bondedTokens)

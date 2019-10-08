@@ -5,10 +5,6 @@ import (
 )
 
 type CommitStatus struct {
-	Result	CommitResult
-}
-
-type CommitResult struct {
 	Signed_header	CommitSignedHeader
 }
 

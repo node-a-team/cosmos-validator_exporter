@@ -16,14 +16,16 @@ func BlockStatus() t.BlockStatus {
 
 	var blockStatus t.BlockStatus
 
-	cmd := "curl -s " + t.RpcServer + "/block"
+	cmd := "curl -s " + t.RestServer + "/blocks/latest"
 	out, _ := exec.Command("/bin/bash", "-c", cmd).Output()
 	json.Unmarshal(out, &blockStatus)
 
-	currentBlockHeight, _ := strconv.Atoi(blockStatus.Result.Block.Header.Height)
+	currentBlockHeight, _ := strconv.Atoi(blockStatus.Block.Header.Height)
+
 
 	// 현재 precommit 정보와 현재 blockHeight를 맞추기 위해 이전 블록 정보로 표시
 	blockStatus = previousBlockStatus(currentBlockHeight - 1)
+
 
 	return blockStatus
 
@@ -33,9 +35,10 @@ func previousBlockStatus(blockHeight int) t.BlockStatus {
 
 	var blockStatus t.BlockStatus
 
-	cmd := "curl -s " + t.RpcServer + "/block?height=" + fmt.Sprint(blockHeight)
+	cmd := "curl -s " + t.RestServer + "/blocks/" + fmt.Sprint(blockHeight)
 	out, _ := exec.Command("/bin/bash", "-c", cmd).Output()
 	json.Unmarshal(out, &blockStatus)
+
 
 	return blockStatus
 
@@ -45,11 +48,12 @@ func CalcBlockTime(currentBlockStatus t.BlockStatus) float64 {
 
 	var blockTime float64
 
-	currentBlockHeight, _ := strconv.Atoi(currentBlockStatus.Result.Block.Header.Height)
+
+	currentBlockHeight, _ := strconv.Atoi(currentBlockStatus.Block.Header.Height)
 	previousBlockHeight := currentBlockHeight - 1
 
-	currentBlockTime := currentBlockStatus.Result.Block.Header.Time
-	previousBlockTime := previousBlockStatus(previousBlockHeight).Result.Block.Header.Time
+	currentBlockTime := currentBlockStatus.Block.Header.Time
+	previousBlockTime := previousBlockStatus(previousBlockHeight).Block.Header.Time
 
 	if previousBlockTime.IsZero() {
 		blockTime = 0.0

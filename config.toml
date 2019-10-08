@@ -12,7 +12,7 @@ address = "localhost:26657"
 address = "localhost:1317"
 
 [validator_info]
-operatorAddress = ""
+operatorAddress = "cosmosvaloper14l0fp639yudfl46zauvv8rkzjgd4u0zk2aseys"
 
 [option]
 exporterListenPort = "26661"

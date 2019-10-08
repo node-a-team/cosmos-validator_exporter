@@ -4,17 +4,17 @@ import (
 	t "github.com/node-a-team/cosmos-validator_exporter/types"
 
 	"encoding/json"
-	"fmt"
-	"os/exec"
 )
 
 func CommitStatus(blockHeight int) t.CommitStatus {
 
 	var commitStatus t.CommitStatus
 
-	cmd := "curl -s -XGET " + t.RpcServer + "/commit?height=" + fmt.Sprint(blockHeight) + " -H \"accept:application/json\""
-	out, _ := exec.Command("/bin/bash", "-c", cmd).Output()
-	json.Unmarshal(out, &commitStatus)
+	var blockHeightInt64 int64 = int64(blockHeight)
+
+	info, _ := t.Client.Commit(&blockHeightInt64)
+	infoMarshal, _ := json.Marshal(info)
+	json.Unmarshal(infoMarshal, &commitStatus)
 
 	return commitStatus
 
@@ -25,7 +25,8 @@ func ValidatorPrecommitStatus(commitStatus t.CommitStatus, consHexAddr string) i
 	// validatorCommitStatus(0: false, 1 : true)
 	validatorCommitStatus := 0
 
-	precommitData := commitStatus.Result.Signed_header.Commit.Precommits
+	precommitData := commitStatus.Signed_header.Commit.Precommits
+//	precommitData := commitStatus.Result.Signed_header.Commit.Precommits
 
 	for _, value := range precommitData {
 
@@ -42,7 +43,8 @@ func PrecommitRate(commitStatus t.CommitStatus) float64 {
 	// validatorCommitStatus(0: false, 1 : true)
 	precommitRate := 0.0
 
-	precommitData := commitStatus.Result.Signed_header.Commit.Precommits
+	precommitData := commitStatus.Signed_header.Commit.Precommits
+//	precommitData := commitStatus.Result.Signed_header.Commit.Precommits
 	totalCount, precommitCount := len(precommitData), len(precommitData)
 
 	for _, value := range precommitData {

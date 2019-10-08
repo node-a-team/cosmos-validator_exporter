@@ -5,11 +5,6 @@ import (
 )
 
 type BlockStatus struct {
-	Result	BlockResult	`json:"result"`
-//	Block Block
-}
-
-type BlockResult struct {
 	Block	Block
 }
 
