@@ -18,7 +18,7 @@ func Init() {
 
 	var config = readConfig()
 
-        fmt.Printf("\033[7m##### %s #####\033[0m\n", config.Title)
+	fmt.Printf("\033[7m##### Exporter Start #####\033[0m\n\n")
 
         t.RpcServer = config.Rpc.Address
         t.RestServer = config.Rest_server.Address
@@ -30,7 +30,7 @@ func Init() {
 	t.OutputPrint = config.Option.OutputPrint
         t.Bech32MainPrefix = config.Network
 
-        fmt.Println("\n[ Your Info ]")
+        fmt.Println("\n[ Your Info]")
         fmt.Println("- Network:", config.Network)
         fmt.Println("- RPC Server Address:", config.Rpc.Address)
         fmt.Println("- Rest Server Address:", config.Rest_server.Address)
@@ -69,16 +69,35 @@ func readConfig() t.Config {
 
 func serverChecker() {
 
-	fmt.Println("serverChecker")
+	fmt.Printf("RPC-Server Check..")
+	cmd := "curl -s -XGET " + t.RpcServer + "/abci_info" +" -H \"accept:application/json\""
+	cmdRun := exec.Command("/bin/bash", "-c", cmd)
+	timer(cmdRun)
 
-        cmd := "curl -s -XGET " + t.RpcServer + "/abci_info" +" -H \"accept:application/json\""
-        out, _ := exec.Command("/bin/bash", "-c", cmd).Output()
-	fmt.Println(string(out))
 
+	fmt.Printf("Rest-Server Check..")
 	cmd = "curl -s -XGET " + t.RestServer + "/node_info" +" -H \"accept:application/json\""
-        out, _ = exec.Command("/bin/bash", "-c", cmd).Output()
-        fmt.Println(string(out))
+        cmdRun = exec.Command("/bin/bash", "-c", cmd)
+        timer(cmdRun)
+}
 
+func timer(cmdRun *exec.Cmd) {
 
+	if err := cmdRun.Start(); err != nil {
+            log.Fatal(err)
+        }
 
+        timer := time.AfterFunc(5 * time.Second, func() {
+            cmdRun.Process.Kill()
+        })
+
+        if err := cmdRun.Wait(); err != nil {
+
+                fmt.Println("Failure!")
+                panic("Error !!!")
+        } else {
+                fmt.Println("Success!")
+        }
+
+        timer.Stop()
 }

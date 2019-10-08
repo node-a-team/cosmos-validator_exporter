@@ -5,11 +5,11 @@ network = "cosmos"
 
 # RPC-Server
 [rpc]
-address = "113.209.186.219:26657"
+address = "localhost:26657"
 
 # Rest-server
 [rest_server]
-address = "113.209.186.219:1317"
+address = "localhost:1317"
 
 [validator_info]
 operatorAddress = "cosmosvaloper14l0fp639yudfl46zauvv8rkzjgd4u0zk2aseys"
