@@ -6,7 +6,7 @@ var (
 
 	OperatorAddr string
 
-	ExporterListenPort string = "29990"
+	ExporterListenPort string = "26661"
 	OutputPrint bool = true
 )
 
