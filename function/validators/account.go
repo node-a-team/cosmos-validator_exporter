@@ -31,8 +31,8 @@ func ValidatorAccount(accountAddr string) (balances []t.Coin, accountNumber floa
 		var accountStatus t.AccountStatus
 		json.Unmarshal(out, &accountStatus)
 
-		balances = accountStatus.Value.Coins
-		accountNumber = utils.StringToFloat64(accountStatus.Value.Account_number)
+		balances = accountStatus.Result.Value.Coins
+		accountNumber = utils.StringToFloat64(accountStatus.Result.Value.Account_number)
 
 	} else {
 
@@ -40,8 +40,8 @@ func ValidatorAccount(accountAddr string) (balances []t.Coin, accountNumber floa
 		var baseVestingAccountStatus t.BaseVestingAccountStatus
 		json.Unmarshal(out, &baseVestingAccountStatus)
 
-		balances = baseVestingAccountStatus.Value.BaseVestingAccount.BaseAccount.Coins
-		accountNumber = utils.StringToFloat64(baseVestingAccountStatus.Value.BaseVestingAccount.BaseAccount.Account_number)
+		balances = baseVestingAccountStatus.Result.Value.BaseVestingAccount.BaseAccount.Coins
+		accountNumber = utils.StringToFloat64(baseVestingAccountStatus.Result.Value.BaseVestingAccount.BaseAccount.Account_number)
 	}
 
 	return balances, accountNumber

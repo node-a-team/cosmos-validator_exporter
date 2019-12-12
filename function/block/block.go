@@ -39,7 +39,6 @@ func previousBlockStatus(blockHeight int) t.BlockStatus {
 	out, _ := exec.Command("/bin/bash", "-c", cmd).Output()
 	json.Unmarshal(out, &blockStatus)
 
-
 	return blockStatus
 
 }

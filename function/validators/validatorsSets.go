@@ -22,7 +22,7 @@ func ValidatorsetsStatus() (int, map[string][]string) {
 	out, _ := exec.Command("/bin/bash", "-c", cmd).Output()
 	json.Unmarshal(out, &validatorsetsStatus)
 
-	for _, value := range validatorsetsStatus.Validators {
+	for _, value := range validatorsetsStatus.Result.Validators {
 		validatorsets[value.Pub_key] = []string{value.Address, value.Voting_power, value.Proposer_priority, "0"}
 	}
 

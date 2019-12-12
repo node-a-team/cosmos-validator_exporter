@@ -3,15 +3,21 @@ package types
 import ()
 
 type AccountStatus struct {
-	Type  string `json:"type"`
-	Value AccountValue
+        Height          int64
+        Result struct {
+		Type  string `json:"type"`
+		Value AccountValue
+	}
 }
 
 type BaseVestingAccountStatus struct {
-	Type  string `json:"type"`
-	Value struct {
-		BaseVestingAccount struct {
-			BaseAccount AccountValue
+	Height          int64
+        Result struct {
+		Type  string `json:"type"`
+		Value struct {
+			BaseVestingAccount struct {
+				BaseAccount AccountValue
+			}
 		}
 	}
 }

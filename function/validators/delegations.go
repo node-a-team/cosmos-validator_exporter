@@ -12,7 +12,7 @@ var ()
 
 func ValidatorDelegatorNumber(operatorAddr string, accountAddr string) (delegatorCount float64, selfDelegationAmount float64) {
 
-	var validatorDelegationStatus []t.ValidatorDelegationStatus
+	var validatorDelegationStatus t.ValidatorDelegationStatus
 
 	delegatorCount, selfDelegationAmount = 0.0, 0.0
 
@@ -20,9 +20,9 @@ func ValidatorDelegatorNumber(operatorAddr string, accountAddr string) (delegato
 	out, _ := exec.Command("/bin/bash", "-c", cmd).Output()
 	json.Unmarshal(out, &validatorDelegationStatus)
 
-	delegatorCount = float64(len(validatorDelegationStatus))
+	delegatorCount = float64(len(validatorDelegationStatus.Result))
 
-	for _, value := range validatorDelegationStatus {
+	for _, value := range validatorDelegationStatus.Result {
 		if value.Delegator_Address == accountAddr {
 			selfDelegationAmount = utils.StringToFloat64(value.Shares)
 		}

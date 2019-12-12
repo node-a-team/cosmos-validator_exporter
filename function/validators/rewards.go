@@ -17,8 +17,9 @@ func ValidatorRewards(operatorAddr string) (rewards []t.Coin, commission []t.Coi
 	out, _ := exec.Command("/bin/bash", "-c", cmd).Output()
 	json.Unmarshal(out, &validatorRewards)
 
-	rewards = validatorRewards.Self_Bond_Rewards
-	commission = validatorRewards.Val_commission
+
+	rewards = validatorRewards.Result.Self_Bond_Rewards
+	commission = validatorRewards.Result.Val_commission
 
 	return rewards, commission
 }

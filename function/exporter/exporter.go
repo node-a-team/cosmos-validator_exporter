@@ -40,6 +40,7 @@ func newGauge(nameSpace string, name string, help string) prometheus.Gauge {
 
 func Exporter() {
 
+
 	var gauges []prometheus.Gauge = make([]prometheus.Gauge, len(gaugesNamespaceList))
 	var gaugesDenom []prometheus.Gauge = make([]prometheus.Gauge, len(denomList)*3)
 
@@ -78,6 +79,7 @@ func Exporter() {
 	for {
 
 		blockStatus := block.BlockStatus()
+
 		currentBlockHeight, _ := strconv.Atoi(blockStatus.Block.Header.Height)
 //		consensusStatus := consensus.ConsensusStatus()
 		commitStatus := commit.CommitStatus(currentBlockHeight)
@@ -141,6 +143,10 @@ func Exporter() {
 			b, _ := strconv.Atoi(validatorsetsStatus[keys[j]][3])
 			return a < b
 		})
+
+
+
+
 
 		// validator_pubkey: gaiad tendermint show-validator -> priv_validator_key.json
 		for _, validatorPubKey := range keys {
@@ -266,6 +272,7 @@ func Exporter() {
 
 				// prometheus giages value
 				gaugesValue := [...]float64{blockHeight, currentBlockTime, precommitRate, blocksPerYear, defaultBlockTime, inflationRateChange, inflationMax, inflationMin, inflationGoalBonded, defaultBlockTimeInflation, currentBlockTimeInflation, proposerWalletAccountNumber, validatorCount, notBondedTokens, bondedTokens, totalBondedTokens, bondedRate, validatorCommitStatus, proposerPriorityValue, proposerPriority, proposingStatus, votingPower, delegatorShares, delegationRatio, delegatorCount, selfDelegationAmount, commissionRate, commissionMaxRate, commissionMaxChangeRate, minSelfDelegation, jailed}
+
 
 				for i := 0; i < len(gaugesNamespaceList); i++ {
 					gauges[i].Set(gaugesValue[i])

@@ -7,8 +7,11 @@ var (
 )
 
 type ValidatorsetsStatus struct {
-	Block_height	string
-	Validators	[]Validators
+	Height		int64
+	Result struct {
+		Block_height	string
+		Validators	[]Validators
+	}
 }
 
 type Validators struct {

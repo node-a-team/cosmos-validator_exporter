@@ -20,6 +20,7 @@ func Account(accaddr string) ([]string, []int64) {
 	var resultAmount []int64
 
 	cmd := "curl -s -XGET " +t.RestServer +"/bank/balances/" +accaddr  +" -H \"accept:application/json\""
+	fmt.Println(cmd)
         out, _ := exec.Command("/bin/bash", "-c", cmd).Output()
         json.Unmarshal(out, &coins)
 
