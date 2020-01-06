@@ -1,32 +1,52 @@
 package main
 
 import (
-	"log"
+	"fmt"
 	"net/http"
+	"os"
+	"go.uber.org/zap"
 
-        t "github.com/node-a-team/cosmos-validator_exporter/types"
-        config "github.com/node-a-team/cosmos-validator_exporter/function/config"
-        websocket "github.com/node-a-team/cosmos-validator_exporter/function/websocket"
-        exporter "github.com/node-a-team/cosmos-validator_exporter/function/exporter"
+	sdk "github.com/cosmos/cosmos-sdk/types"
 
-        "github.com/prometheus/client_golang/prometheus/promhttp"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
+
+	cfg "github.com/node-a-team/cosmos-validator_exporter/config"
+	"github.com/node-a-team/cosmos-validator_exporter/exporter"
+	rpc "github.com/node-a-team/cosmos-validator_exporter/getData/rpc"
 )
 
-var (
-
-
+const (
+	bech32MainPrefix = "cosmos"
 )
-
-
 
 func main() {
 
-        http.Handle("/metrics", promhttp.Handler())
+	port := "26661"
 
-	config.Init()
-	websocket.OpenSocket()
+	log,_ := zap.NewDevelopment()
+        defer log.Sync()
 
-	go exporter.Exporter()
+	config := sdk.GetConfig()
+	config.SetBech32PrefixForAccount(bech32MainPrefix, bech32MainPrefix+sdk.PrefixPublic)
+	config.SetBech32PrefixForValidator(bech32MainPrefix+sdk.PrefixValidator+sdk.PrefixOperator, bech32MainPrefix+sdk.PrefixValidator+sdk.PrefixOperator+sdk.PrefixPublic)
+	config.SetBech32PrefixForConsensusNode(bech32MainPrefix+sdk.PrefixValidator+sdk.PrefixConsensus, bech32MainPrefix+sdk.PrefixValidator+sdk.PrefixConsensus+sdk.PrefixPublic)
 
-	 log.Fatal(http.ListenAndServe(":"+t.ExporterListenPort, nil))
- }
+	cfg.ConfigPath = os.Args[1]
+
+	cfg.Init()
+	rpc.OpenSocket(log)
+
+	http.Handle("/metrics", promhttp.Handler())
+	go exporter.Start(log)
+
+	err := http.ListenAndServe(":" +port, nil)
+	// log
+        if err != nil {
+                // handle error
+                log.Fatal("HTTP Handle", zap.Bool("Success", false), zap.String("err", fmt.Sprint(err),))
+        } else {
+		log.Info("HTTP Handle", zap.Bool("Success", true), zap.String("err", "nil"), zap.String("Listen&Serve", "Prometheus Handler(Port: " +port +")"),)
+        }
+
+//	utils.Log(err, "Http Handle", "", "")
+}

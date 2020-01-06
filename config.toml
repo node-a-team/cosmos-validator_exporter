@@ -1,19 +1,14 @@
-# TOML Document for Cosmos-Validator Exporter(Pometheus & Grafana)
+# TOML Document for Terra-Validator Exporter(Pometheus & Grafana)
 
-title = "Cosmos-Validator Exporter TOML"
-network = "cosmos"
+title = "TOML Document"
 
-# RPC-Server
-[rpc]
-address = "localhost:26657"
+[Servers]
+	[Servers.addr]
+	rpc = "localhost:26657"
+	rest = "localhost:1317"
 
-# Rest-server
-[rest_server]
-address = "localhost:1317"
+[Validator]
+operatorAddr = "cosmosvaloper14l0fp639yudfl46zauvv8rkzjgd4u0zk2aseys"
 
-[validator_info]
-operatorAddress = "cosmosvaloper14l0fp639yudfl46zauvv8rkzjgd4u0zk2aseys"
-
-[option]
-exporterListenPort = "26661"
-outputPrint = true
+[Options]
+listenPort = "26661"
