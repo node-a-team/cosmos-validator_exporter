@@ -1,11 +1,6 @@
 package metric
 
 import (
-
-//	"fmt"
-//	"encoding/hex"
-//	sdk "github.com/cosmos/cosmos-sdk/types"
-
 	"github.com/prometheus/client_golang/prometheus"
 )
 

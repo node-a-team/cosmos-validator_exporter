@@ -1,10 +1,6 @@
 package metric
 
 import (
-
-//	"fmt"
-//	"encoding/hex"
-//	sdk "github.com/cosmos/cosmos-sdk/types"
 	"go.uber.org/zap"
 
 	rest "github.com/node-a-team/cosmos-validator_exporter/getData/rest"
@@ -122,7 +118,6 @@ func SetMetric(currentBlock int64, restData *rest.RESTData, rpcData *rpc.RPCData
 	consAddr := restData.Validatorsets[consPubKey][0]
 
 	//// network
-
 	metricData.Network.ChainID = rpcData.Commit.ChainId
         metricData.Network.BlockHeight = currentBlock
 

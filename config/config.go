@@ -2,12 +2,11 @@ package config
 
 import (
 	"log"
-//	"time"
 
 	"github.com/BurntSushi/toml"
+
 	rpc "github.com/node-a-team/cosmos-validator_exporter/getData/rpc"
 	rest "github.com/node-a-team/cosmos-validator_exporter/getData/rest"
-//	"github.com/spf13/viper"
 )
 
 const (
@@ -40,7 +39,7 @@ type configType struct {
 }
 
 
-func Init() {
+func Init() string {
 
 	Config = readConfig()
 
@@ -49,15 +48,13 @@ func Init() {
 
 	rest.OperAddr = Config.Validator.OperatorAddr
 
+	return Config.Options.ListenPort
 }
 
 func readConfig() configType {
 
         var config configType
 
-//	path := viper.GetString(ConfigPath)+"/config.toml"
-
-//        if _, err := toml.DecodeFile(path, &config); err != nil{
         if _, err := toml.DecodeFile(ConfigPath +"/config.toml", &config); err != nil{
 
                 log.Fatal("Config file is missing: ", config)

@@ -1,14 +1,9 @@
 package metric
 
 import (
-
 	"fmt"
-//	"encoding/hex"
-	sdk "github.com/cosmos/cosmos-sdk/types"
 
-//	"github.com/node-a-team/terra-validator_exporter/getData"
-//	cfg "github.com/node-a-team/terra-validator_exporter/config"
-//	utils "github.com/node-a-team/terra-validator_exporter/utils"
+	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
 var (
