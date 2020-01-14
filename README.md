@@ -14,7 +14,7 @@ This exporter is for monitoring information which is not provided from Tendermin
 ```bash
 mkdir exporter && cd exporter
 
-wget https://github.com/node-a-team/cosmos-validator_exporter/releases/download/v0.3.0/cosmos-validator_exporter.tar.gz  && sha256sum cosmos-validator_exporter.tar.gz | fgrep eae78bad26a13327f8992d39a27e08b19ef2442415e9edc7fc566b7f75500890 && tar -zxvf cosmos-validator_exporter.tar.gz ||  echo "Bad Binary!"
+wget https://github.com/node-a-team/cosmos-validator_exporter/releases/download/v0.3.0/cosmos-validator_exporter.tar.gz  && sha256sum cosmos-validator_exporter.tar.gz | fgrep 848594f80cb8a18e72d00f3f47bffbaea7510984857171557ec9206e59b979e7 && tar -zxvf cosmos-validator_exporter.tar.gz ||  echo "Bad Binary!"
 ```
 
 ## Config
