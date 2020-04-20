@@ -9,6 +9,41 @@ Prometheus exporter for Cosmos Validators
 ## Introduction
 This exporter is for monitoring information which is not provided from Tendermint’s basic Prometheus exporter (localhost:26660), and other specific information monitoring purposes
 
+## List of collected Information
+- blockHeight: Height of the current block
+- bondedTokens: Number of currently bonded Atom
+- notBondedTokens: Number of unbonded Atom
+- bondedRatio: Ratio of bonded tokens within the network
+- totalSupply: Total Supply of Atom
+
+- precommitStatus: Check precommit for previous block
+- commitVoteType: Check commit vote type for previous block(false: 0, prevote: 1, precommit: 2)
+- jailStatus: Confirms if the validator is jailed or not(true: 1, false: 0)
+
+- votingPower: Decimal truncated Total voting power of the validator
+- delegatorCount: Number of each unique delegators for a validator
+- delegatorShares: Validator's total delegated tokens
+- delegationRatio: Ratio of validator's bonded tokens to the network's total bonded tokens
+- delegationSelf: Self-bonded amount of the validator
+- minSelfDelegation: The required minimum number of tokens whic hthe validator must self-delegate
+
+- Inflation: current network inflation
+- actualInflation: Inflation / bondedRatio
+- balances(uatom): Wallet information of the validator which shows the balance
+- commission(uatom): Accumulated commission fee of the validator
+- rewards(uatom): Accumulated rewards of the validator
+
+- commissionMaxRate: The highest commission rate which the validator can charge
+- commissionMaxChangeRate: Max range of commission rate whic hthe validator can change
+- commissionRate: Commission rate of the validator charged on delegators' rewards
+
+- proposerRanking: Ranking to become a proposer
+- proposerStatus: Shows if the validator is the proposer or not in the current round(true: 1, false: 0)
+
+- totalProposalCount: Total number of proposals
+- votingProposalCount: Proposal that is voting period
+
+- labels: moniker, chainId, accountAddress, operatorAddress, consHexAddress, 
 
 ## Install
 ```bash
